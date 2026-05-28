@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detección partes del rostro</title>
+
+    <!-- P5.js -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.min.js"></script>
+
+    <!-- ML5.js -->
+    <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Detección de partes del rostro</h1>
+    <!-- Selector -->
+    <label>Parte del rostro:</label>
+    <select id="parteSeleccionada">
+      <option value="all">Mostrar Todo</option>
+      <option value="leftEye">Ojo Izquierdo</option>
+      <option value="rightEye">Ojo Derecho</option>
+      <option value="lips">labios</option>
+      <option value="faceOval">Ovalo de Rostro</option>
+      <option value="leftEyebrow">Ceja Izquieda</option>
+      <option value="rightEyebrow">Ceja Derecha</option>
+    </select>
+
+    <!-- Color -->
+    <label>Color:</label>
+    <input type="color" id="colorSeleccionado" value="#ff0000" />
+
+    <script>
+      let faceMesh;
+      let video;
+      let faces = [];
+      let options = {
+        maxFaces: 1,
+        refineLandmarks: false,
+        flipHorizontal: false,
+      };
+
+      function preload() {
+        faceMesh = ml5.faceMesh(options);
+      }
+
+      function setup() {
+        createCanvas(640, 480);
+
+        video = createCapture(VIDEO);
+        video.size(640, 480);
+        video.hide();
+
+        //Iniciamos la detección sobre el rostro
+        faceMesh.detectStart(video, gotFaces);
+      }
+
+      function draw() {
+        image(video, 0, 0, width, height);
+
+        let parteSeleccionada = document.getElementById("parteSeleccionada").value;
+
+        let selectedColor = document.getElementById("colorSeleccionado").value;
+
+        //Convierte el texto hexadecimal en un color
+        let c = color(selectedColor);
+
+        // Iterar rostros
+        for (let i = 0; i < faces.length; i++) {
+          let face = faces[i];
+
+          // Iterar keypoints
+          for (let j = 0; j < face.keypoints.length; j++) {
+            let keypoint = face.keypoints[j];
+
+            if (parteSeleccionada === "all") {
+              fill(c);
+              noStroke();
+
+              circle(keypoint.x, keypoint.y, 5);
+            }
+
+            else if (keypoint.name === parteSeleccionada) {
+              fill(c);
+              noStroke();
+
+              circle(keypoint.x, keypoint.y, 6);
+            }
+          }
+        }
+      }
+
+      function gotFaces(result) {
+        faces = result;
+      }
+    </script>
+  </body>
+</html>
