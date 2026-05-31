@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detector de Personas</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.7/lib/p5.js"></script>
+    <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      #barra-container {
+        width: 400px;
+        height: 30px;
+        border: 1px solid black;
+        margin: 10px auto;
+      }
+      #barra {
+        width: 0%;
+        height: 100%;
+        background: green;
+        transition: width 0.1s;
+      }
+      #estado {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      canvas {
+        display: block;
+        margin: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Detección de Personas</h2>
+    <div id="barra-container">
+      <div id="barra"></div>
+    </div>
+    <p id="estado">Esperando...</p>
+
+    <script>
+      let video;
+      let detector;
+      let detections = [];
+      let personaDetectada = false;
+      let tiempoInicio = null;
+      let alarmaEmitida = false;
+
+      function preload() {
+        detector = ml5.objectDetection("cocossd");
+      }
+
+      function gotDetections(results) {
+        detections = results;
+      }
+
+      function setup() {
+        createCanvas(640, 480);
+        video = createCapture(VIDEO);
+        video.size(640, 480);
+        video.hide();
+
+        detector.detectStart(video, gotDetections);
+      }
+
+      function draw() {
+        image(video, 0, 0);
+
+        personaDetectada = false;
+
+        for (let i = 0; i < detections.length; i++) {
+          let d = detections[i];
+
+          if (d.label === "person") {
+            personaDetectada = true;
+          }
+
+          stroke(0, 255, 0);
+          strokeWeight(3);
+          noFill();
+          rect(d.x, d.y, d.width, d.height);
+
+          fill(255);
+          noStroke();
+          textSize(18);
+          text(d.label, d.x, d.y - 5);
+        }
+
+        if (personaDetectada) {
+          if (tiempoInicio === null) {
+            tiempoInicio = millis();
+          }
+
+          let segundos = (millis() - tiempoInicio) / 1000;
+          let porcentaje = min((segundos / 5) * 100, 100);
+          document.getElementById("barra").style.width = porcentaje + "%";
+
+          document.getElementById("estado").innerText =
+            "Persona detectada: " + segundos.toFixed(1) + " segundos";
+
+          if (segundos >= 5 && !alarmaEmitida) {
+            alarmaEmitida = true;
+
+            speechSynthesis.cancel();
+
+            const mensaje = new SpeechSynthesisUtterance(
+              "Alerta. Persona detectada por más de cinco segundos",
+            );
+
+            mensaje.lang = "es-ES";
+            speechSynthesis.speak(mensaje);
+            document.getElementById("estado").innerText = "⚠ ALERTA ACTIVADA";
+          }
+        } else {
+          tiempoInicio = null;
+          alarmaEmitida = false;
+
+          document.getElementById("barra").style.width = "0%";
+          document.getElementById("estado").innerText = "Esperando...";
+        }
+      }
+    </script>
+  </body>
+</html>
