@@ -3,11 +3,11 @@ const MODULES = {
   "01": { title: "Clasificar Imagen", src: "detectar-imagen.html" },
   "02": { title: "Trazado de Línea", src: "trazado-linea.html" },
   "03": { title: "Detección Rostro", src: "deteccion-rostro.html" },
-  "04": { title: "Teachable Machine", src: "teachable-machine.html" },
+  "04": { title: "Teachable Machine", src: "teachable-objetos.html" },
   "05": { title: "Detección Personas", src: "deteccion-personas.html" },
 };
 
-const welcome = document.getElementById("welcome");
+const inicio = document.getElementById("inicio");
 const iframeWrapper = document.getElementById("iframeWrapper");
 const moduleFrame = document.getElementById("moduleFrame");
 const topbarNum = document.getElementById("topbarNum");
@@ -32,8 +32,8 @@ function openModule(id) {
   //Cargar iframe
   moduleFrame.src = mod.src;
 
-  // mostrar iframe... ocultar welcome
-  welcome.classList.add("hidden");
+  // mostrar iframe... ocultar inicio
+  inicio.classList.add("hidden");
   iframeWrapper.classList.add("visible");
 
   //Marcar nav activo
@@ -48,7 +48,7 @@ function closeModule() {
   moduleFrame.src = "";
 
   iframeWrapper.classList.remove("visible");
-  welcome.classList.remove("hidden");
+  inicio.classList.remove("hidden");
 
   navItems.forEach((btn) => btn.classList.remove("active"));
 }

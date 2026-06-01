@@ -9,43 +9,37 @@
     <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
     <link rel="stylesheet" href="css/modules.css" />
   </head>
+
   <body class="module-page">
     <div class="module-container">
-
-    <div class="module-header">
-      <h1>Trazado de Línea entre Dedos Índices</h1>
-      <p>
-        Utilizando HandPose y la cámara web, el sistema detecta
-        los dedos índices de ambas manos y dibuja una línea recta
-        entre ellos en tiempo real.
-      </p>
-    </div>
-
-    <div class="viewer-card">
-
-      <div id="canvas-container"></div>
-
-      <div class="status-panel">
-
-        <div class="status-item">
-          <span>Manos detectadas</span>
-          <strong id="handsCount">0</strong>
-        </div>
-
-        <div class="status-item">
-          <span>Estado</span>
-          <strong id="statusText">Esperando...</strong>
-        </div>
-
+      <div class="module-header">
+        <h1>Trazado de Línea entre Dedos Índices</h1>
+        <p>
+          Utilizando HandPose y la cámara web, el sistema detecta los dedos
+          índices de ambas manos y dibuja una línea recta entre ellos en tiempo
+          real.
+        </p>
       </div>
 
-    </div>
+      <div>
+        <div id="canvas-container"></div>
+        <div>
+          <div>
+            <span>Manos detectadas</span>
+            <strong id="handsCount">0</strong>
+          </div>
 
-  </div>
+          <div class="status-item">
+            <span>Estado</span>
+            <strong id="statusText">Esperando...</strong>
+          </div>
+        </div>
+      </div>
+    </div>
     <script>
       let handPose; //mod.
       let video;
-      let hands = []; 
+      let hands = [];
       let pinch = 0;
 
       function preload() {
@@ -62,18 +56,26 @@
       }
 
       function draw() {
-
         image(video, 0, 0, width, height);
 
+        // Actualizar indicadores
+        document.getElementById("handsCount").textContent = hands.length;
+
         if (hands.length > 1) {
-          //Si al menos dos manos fueron detectadas..
-          // Obtener los dedos índices de ambas manos
+          document.getElementById("statusText").textContent =
+            "2 manos detectadas";
+
           let index1 = hands[0].index_finger_tip;
           let index2 = hands[1].index_finger_tip;
 
           stroke(0, 255, 0);
           strokeWeight(4);
-          line(index1.x, index1.y, index2.x, index2.y); // dibuja la línea entre índices
+          line(index1.x, index1.y, index2.x, index2.y);
+        } else if (hands.length === 1) {
+          document.getElementById("statusText").textContent =
+            "1 mano detectada";
+        } else {
+          document.getElementById("statusText").textContent = "Esperando...";
         }
       }
 
