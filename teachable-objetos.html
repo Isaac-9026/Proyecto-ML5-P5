@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/modules.css" />
   </head>
   <body>
-    <div class="module-layout">
+    <div>
       <div class="module-header">
         <h1>Teachable Machine</h1>
         <p>
@@ -19,25 +19,25 @@
         </p>
       </div>
 
-      <div class="module-grid">
-        <div class="canvas-card">
+      <div>
+        <div>
           <div id="canvas-container"></div>
         </div>
-        <div class="info-panel">
-          <div class="info-card">
-            <span class="info-label">Objeto detectado: </span>
-            <span class="info-value" id="detectedObject"> Esperando... </span>
+        <div>
+          <div>
+            <span>Objeto detectado: </span>
+            <span class="info-value" id="objetoDetectado"> Esperando... </span>
           </div>
-          <div class="info-card">
-            <span class="info-label">Confianza: </span>
+          <div>
+            <span>Confianza: </span>
             <span class="info-value" id="confidence"> 0% </span>
           </div>
-          <div class="info-card">
-            <span class="info-label">Estado: </span>
+          <div>
+            <span>Estado: </span>
             <span class="info-value" id="status"> Analizando... </span>
           </div>
-          <div class="info-card">
-            <span class="info-label">Síntesis de voz: </span>
+          <div>
+            <span>Síntesis de voz: </span>
             <span class="info-value"> Activada </span>
           </div>
         </div>
@@ -47,7 +47,7 @@
     <script>
       let classifier;
       let video;
-      let lastSpokenLabel = "";
+      let ultimaEtiquetaHablada = "";
       const imageModelURL = "./models/teachable/";
 
       function preload() {
@@ -65,10 +65,10 @@
 
       function draw() {
         background(0);
-        push();
-        translate(width, 0);
+        push();// Guardar estado del canvs
+        translate(width, 0); //Invertir
         scale(-1, 1);
-        image(video, 0, 0, width, height);
+        image(video, 0, 0, width, height); 
 
         pop();
       }
@@ -85,7 +85,8 @@
 
         const item = results[0];
         const confidence = Math.round(item.confidence * 100);
-        const objectElement = document.getElementById("detectedObject");
+        // Conectar con los elementos HTML
+        const objectElement = document.getElementById("objetoDetectado");
         const confidenceElement = document.getElementById("confidence");
         const statusElement = document.getElementById("status");
 
@@ -94,23 +95,26 @@
           confidenceElement.textContent = confidence + "%";
           statusElement.textContent = "Detectado";
 
-          if (lastSpokenLabel !== item.label) {
+          // Si es una nueva detección, pronunciarla
+          if (ultimaEtiquetaHablada !== item.label) {
             const speech = new SpeechSynthesisUtterance(
               `Se detectó ${item.label} con ${confidence} por ciento de confianza`,
             );
 
             speech.lang = "es-PE";
 
+            // Cancelar cualquier voz pendiente y reproducir
             window.speechSynthesis.cancel();
             window.speechSynthesis.speak(speech);
 
-            lastSpokenLabel = item.label;
+            // Guardar la última etiqueta hablada
+            ultimaEtiquetaHablada = item.label;
           }
         } else {
           objectElement.textContent = "No identificado";
           confidenceElement.textContent = confidence + "%";
           statusElement.textContent = "Confianza insuficiente";
-          lastSpokenLabel = "";
+          ultimaEtiquetaHablada = "";
         }
 
         classifyVideo();

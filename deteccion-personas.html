@@ -53,11 +53,13 @@
             personaDetectada = true;
           }
 
+          //figura
           stroke(0, 255, 0);
           strokeWeight(3);
           noFill();
           rect(d.x, d.y, d.width, d.height);
 
+          //text
           fill(255);
           noStroke();
           textSize(18);
@@ -82,7 +84,7 @@
             speechSynthesis.cancel();
 
             const mensaje = new SpeechSynthesisUtterance(
-              "Alerta. Persona detectada por más de cinco segundos",
+              "Alerta. Se ha detectado una persona",
             );
 
             mensaje.lang = "es-ES";

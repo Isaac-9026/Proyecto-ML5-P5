@@ -30,7 +30,7 @@
 }
 
 .viewer-card,
-.gallery-card {
+.galeria-card {
   background: #101014;
   border: 1px solid rgba(255,255,255,.05);
   border-radius: 14px;
@@ -64,17 +64,17 @@ canvas {
   font-size: 15px;
 }
 
-.gallery-card h3 {
+.galeria-card h3 {
   margin-bottom: 16px;
 }
 
-.image-gallery {
+.galeria-imagen {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 
-.thumb {
+.miniatura {
   width: 100%;
   height: 110px;
   object-fit: cover;
@@ -84,12 +84,12 @@ canvas {
   transition: .25s;
 }
 
-.thumb:hover {
+.miniatura:hover {
   transform: translateY(-3px);
   border-color: rgba(59,130,246,.5);
 }
 
-.thumb.active {
+.miniatura.active {
   border-color: #3b82f6;
   box-shadow: 0 0 20px rgba(59,130,246,.25);
 }

@@ -1,11 +1,11 @@
 let classifier; //modelo
 let img;
 //Ruta de la imagen inicial que se mostrará al iniciar
-let currentImagePath = "assets/images/apple.jpg";
+let imagenInicial = "assets/images/apple.jpg";
 
 function preload() {
   classifier = ml5.imageClassifier("MobileNet");
-  img = loadImage(currentImagePath);
+  img = loadImage(imagenInicial);
 }
 
 function setup() {
@@ -17,7 +17,6 @@ function setup() {
   //Insertar el canvas dentro del div del html
   container.appendChild(document.querySelector("canvas"));
 
-  //analizar
   classifier.classify(img, goResult);
 
   displayImage();
@@ -67,17 +66,17 @@ function goResult(result) {
   }
 }
 
-document.querySelectorAll(".thumb").forEach((thumb) => {
-  thumb.addEventListener("click", () => {
+document.querySelectorAll(".miniatura").forEach((miniatura) => {
+  miniatura.addEventListener("click", () => {
     document
-      .querySelectorAll(".thumb")
+      .querySelectorAll(".miniatura")
       .forEach((t) => t.classList.remove("active"));
 
-    thumb.classList.add("active");
+    miniatura.classList.add("active");
 
-    currentImagePath = thumb.dataset.image;
+    imagenInicial = miniatura.dataset.image;
 
-    img = loadImage(currentImagePath, () => {
+    img = loadImage(imagenInicial, () => {
       background(255);
 
       displayImage();

@@ -4,91 +4,76 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reconocimiento de Imágenes</title>
-
     <!-- P5.js facilita la gestión de canvas, sonido, cámara, video -->
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.min.js"></script>
-
     <!-- ML5.js (ML) Última versión -->
     <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
-
     <!-- CSS externo -->
     <link rel="stylesheet" href="css/modules.css" />
   </head>
   <body class="module-page">
+    <div class="module-container">
+      <div class="module-header">
+        <h1>Reconocimiento de Imágenes</h1>
+        <p>
+          Selecciona una imagen del catálogo para que MobileNet identifique su
+          contenido.
+        </p>
+      </div>
 
-  <div class="module-container">
+      <div class="module-content">
+        <!-- Imagen analizada -->
+        <div class="viewer-card">
+          <div id="canvas-container"></div>
 
-    <div class="module-header">
-      <h1>Reconocimiento de Imágenes</h1>
-      <p>
-        Selecciona una imagen del catálogo para que MobileNet
-        identifique su contenido.
-      </p>
-    </div>
+          <div id="results">
+            <div class="result-category" id="category">
+              Esperando análisis...
+            </div>
 
-    <div class="module-content">
-
-      <!-- Imagen analizada -->
-      <div class="viewer-card">
-        <div id="canvas-container"></div>
-
-        <div id="results">
-          <div class="result-category" id="category">
-            Esperando análisis...
+            <div class="result-percentage" id="percentage">-</div>
           </div>
+        </div>
 
-          <div class="result-percentage" id="percentage">
-            -
+        <!-- Imágenes -->
+        <div class="galeria-card">
+          <h3>Imágenes</h3>
+
+          <div class="galeria-imagen">
+            <img
+              src="assets/images/apple.jpg"
+              class="miniatura active"
+              data-image="assets/images/apple.jpg"
+            />
+
+            <img
+              src="assets/images/ball.jpg"
+              class="miniatura"
+              data-image="assets/images/ball.jpg"
+            />
+
+            <img
+              src="assets/images/car.jpg"
+              class="miniatura"
+              data-image="assets/images/car.jpg"
+            />
+
+            <img
+              src="assets/images/kitchen.jpg"
+              class="miniatura"
+              data-image="assets/images/kitchen.jpg"
+            />
+
+            <img
+              src="assets/images/lion.jpg"
+              class="miniatura"
+              data-image="assets/images/lion.jpg"
+            />
           </div>
         </div>
       </div>
-
-      <!-- Catálogo -->
-      <div class="gallery-card">
-
-        <h3>Catálogo</h3>
-
-        <div class="image-gallery">
-
-          <img
-            src="assets/images/apple.jpg"
-            class="thumb active"
-            data-image="assets/images/apple.jpg"
-          />
-
-          <img
-            src="assets/images/ball.jpg"
-            class="thumb"
-            data-image="assets/images/ball.jpg"
-          />
-
-          <img
-            src="assets/images/car.jpg"
-            class="thumb"
-            data-image="assets/images/car.jpg"
-          />
-
-          <img
-            src="assets/images/kitchen.jpg"
-            class="thumb"
-            data-image="assets/images/kitchen.jpg"
-          />
-
-          <img
-            src="assets/images/lion.jpg"
-            class="thumb"
-            data-image="assets/images/lion.jpg"
-          />
-
-        </div>
-
-      </div>
-
     </div>
 
-  </div>
-
-  <script src="js/detectar-imagen.js"></script>
-
-</body>
+    <script src="js/detectar-imagen.js"></script>
+  </body>
 </html>
