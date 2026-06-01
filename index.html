@@ -1,12 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=
-  , initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ML-JS</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-ml">ML</span><span class="logo-5">5</span>
+        </div>
+        <p class="sidebar-subtitle">Machine Learning<br />con JavaScript</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <p class="nav-label">Ejercicios</p>
+
+        <button class="nav-item" data-src="detectar-imagen.html" data-id="01">
+          <div class="nav-info">
+            <span class="nav-title">Clasificar Imagenes</span>
+            <span class="nav-desc">MobileNet · catálogo</span>
+          </div>
+        </button>
+
+        <button class="nav-item" data-src="trazado-linea.html" data-id="02">
+          <div class="nav-info">
+            <span class="nav-title">Trazado de Líneas</span>
+            <span class="nav-desc">HandPose · cámara</span>
+          </div>
+        </button>
+
+        <button class="nav-item" data-src="deteccion-rostro.html" data-id="03">
+          <div class="nav-info">
+            <span class="nav-title">Detección de Rostros</span>
+            <span class="nav-desc">FaceMesh · partes</span>
+          </div>
+        </button>
+
+        <button class="nav-item" data-src="teachable-machine.html" data-id="04">
+          <div class="nav-info">
+            <span class="nav-title">Teachable Machine</span>
+            <span class="nav-desc">Modelo custom · voz</span>
+          </div>
+        </button>
+
+        <button
+          class="nav-item"
+          data-src="deteccion-personas.html"
+          data-id="05"
+        >
+          <div class="nav-info">
+            <span class="nav-title">Detección de Personas</span>
+            <span class="nav-desc">COCOSSD · Alarma</span>
+          </div>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span>ML5.js</span>
+        <span class="dot">·</span>
+        <span>P5.js</span>
+        <span class="dot">·</span>
+        <span>TF.js</span>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <!-- Pantalla de inicio -->
+      <div class="welcome-screen" id="welcome">
+        <div class="welcome-inner">
+          <h1 class="welcome-title">
+            5 Ejercicios<br /><em>Prácticos</em> con ML
+          </h1>
+          <p class="welcome-desc">
+            Selecciona un módulo del panel izquierdo para comenzar.<br />
+            Cada ejercicio utiliza modelos preentrenados en tiempo real.
+          </p>
+          <div class="welcome-cards">
+            <div class="wcard" data-target="01">
+              <span class="wcard-num">01</span>
+              <span class="wcard-name">Clasificar Imagen</span>
+            </div>
+            <div class="wcard" data-target="02">
+              <span class="wcard-num">02</span>
+              <span class="wcard-name">Trazado de Línea</span>
+            </div>
+            <div class="wcard" data-target="03">
+              <span class="wcard-num">03</span>
+              <span class="wcard-name">Detección Rostro</span>
+            </div>
+            <div class="wcard" data-target="04">
+              <span class="wcard-num">04</span>
+              <span class="wcard-name">Teachable Machine</span>
+            </div>
+            <div class="wcard" data-target="05">
+              <span class="wcard-num">05</span>
+              <span class="wcard-name">Detección Personas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Iframe donde cargan los módulos -->
+      <div class="iframe-wrapper" id="iframeWrapper">
+        <div class="iframe-topbar">
+          <div class="topbar-left">
+            <span class="topbar-num" id="topbarNum">01</span>
+            <span class="topbar-title" id="topbarTitle">Módulo</span>
+          </div>
+          <button class="topbar-close" id="btnClose" title="Cerrar módulo">
+            ✕
+          </button>
+        </div>
+        <iframe
+          id="moduleFrame"
+          src=""
+          allowfullscreen
+          allow="camera; microphone; autoplay"
+        ></iframe>
+      </div>
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
 </html>
