@@ -7,8 +7,41 @@
     <title>ml5.js handPose p5 Webcam Example</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.10/p5.min.js"></script>
     <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+    <link rel="stylesheet" href="css/modules.css" />
   </head>
-  <body>
+  <body class="module-page">
+    <div class="module-container">
+
+    <div class="module-header">
+      <h1>Trazado de Línea entre Dedos Índices</h1>
+      <p>
+        Utilizando HandPose y la cámara web, el sistema detecta
+        los dedos índices de ambas manos y dibuja una línea recta
+        entre ellos en tiempo real.
+      </p>
+    </div>
+
+    <div class="viewer-card">
+
+      <div id="canvas-container"></div>
+
+      <div class="status-panel">
+
+        <div class="status-item">
+          <span>Manos detectadas</span>
+          <strong id="handsCount">0</strong>
+        </div>
+
+        <div class="status-item">
+          <span>Estado</span>
+          <strong id="statusText">Esperando...</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
     <script>
       let handPose; //mod.
       let video;

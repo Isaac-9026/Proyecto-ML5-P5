@@ -12,27 +12,83 @@
     <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
 
     <!-- CSS externo -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/modules.css" />
   </head>
-  <body>
-    <h2>Reconocimiento de Imágenes</h2>
+  <body class="module-page">
 
-    <label for="image-selector">Seleccionar imagen:</label>
-    <select id="image-selector">
-      <option value="assets/images/apple.jpg">Imagen 1</option>
-      <option value="assets/images/ball.jpg">Imagen 2</option>
-      <option value="assets/images/car.jpg">Imagen 3</option>
-      <option value="assets/images/kitchen.jpg">Animal 4</option>
-      <option value="assets/images/lion.jpg">Animal 5</option>
-    </select>
+  <div class="module-container">
 
-    <div id="canvas-container"></div>
-
-    <div id="results">
-      <div class="result-category" id="category">-</div>
-      <div class="result-percentage" id="percentage">-</div>
+    <div class="module-header">
+      <h1>Reconocimiento de Imágenes</h1>
+      <p>
+        Selecciona una imagen del catálogo para que MobileNet
+        identifique su contenido.
+      </p>
     </div>
 
-    <script src="js/detectar-imagen.js"></script>
-  </body>
+    <div class="module-content">
+
+      <!-- Imagen analizada -->
+      <div class="viewer-card">
+        <div id="canvas-container"></div>
+
+        <div id="results">
+          <div class="result-category" id="category">
+            Esperando análisis...
+          </div>
+
+          <div class="result-percentage" id="percentage">
+            -
+          </div>
+        </div>
+      </div>
+
+      <!-- Catálogo -->
+      <div class="gallery-card">
+
+        <h3>Catálogo</h3>
+
+        <div class="image-gallery">
+
+          <img
+            src="assets/images/apple.jpg"
+            class="thumb active"
+            data-image="assets/images/apple.jpg"
+          />
+
+          <img
+            src="assets/images/ball.jpg"
+            class="thumb"
+            data-image="assets/images/ball.jpg"
+          />
+
+          <img
+            src="assets/images/car.jpg"
+            class="thumb"
+            data-image="assets/images/car.jpg"
+          />
+
+          <img
+            src="assets/images/kitchen.jpg"
+            class="thumb"
+            data-image="assets/images/kitchen.jpg"
+          />
+
+          <img
+            src="assets/images/lion.jpg"
+            class="thumb"
+            data-image="assets/images/lion.jpg"
+          />
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="js/detectar-imagen.js"></script>
+
+</body>
 </html>

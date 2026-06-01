@@ -1,4 +1,4 @@
-let classifier;//modelo
+let classifier; //modelo
 let img;
 //Ruta de la imagen inicial que se mostrará al iniciar
 let currentImagePath = "assets/images/apple.jpg";
@@ -9,7 +9,6 @@ function preload() {
 }
 
 function setup() {
-
   //obtener el contenedor donde se insertara el canvas
   let container = document.getElementById("canvas-container");
 
@@ -58,8 +57,7 @@ function goResult(result) {
       "No puede precisar qué es";
 
     document.getElementById("percentage").textContent =
-      "Confianza: " + percentage + "%";
-
+      `Confianza insuficiente (${percentage}%)`;
   } else {
     document.getElementById("category").textContent =
       "Categoría: " + result[0].label;
@@ -69,21 +67,21 @@ function goResult(result) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.querySelectorAll(".thumb").forEach((thumb) => {
+  thumb.addEventListener("click", () => {
+    document
+      .querySelectorAll(".thumb")
+      .forEach((t) => t.classList.remove("active"));
 
-  // Obtener el selector de imágenes
-  const selector = document.getElementById("image-selector");
+    thumb.classList.add("active");
 
-  selector.addEventListener("change", (e) => {
-
-    // Guardar la nueva ruta seleccionada
-    currentImagePath = e.target.value;
+    currentImagePath = thumb.dataset.image;
 
     img = loadImage(currentImagePath, () => {
       background(255);
+
       displayImage();
 
-      //volver a clasificar la nueva imagen
       classifier.classify(img, goResult);
     });
   });

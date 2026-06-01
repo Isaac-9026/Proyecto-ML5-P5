@@ -10,9 +10,23 @@
 
     <!-- ML5.js -->
     <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+    <link rel="stylesheet" href="css/modules.css" />
   </head>
 
   <body>
+    <style>
+      body {
+        color: white;
+        text-align: center;
+        margin-left: 120px;
+        font-family: Arial, sans-serif;
+      }
+
+      label,
+      h1 {
+        color: white;
+      }
+    </style>
     <h1>Detección de partes del rostro</h1>
     <!-- Selector -->
     <label>Parte del rostro:</label>
@@ -58,7 +72,8 @@
       function draw() {
         image(video, 0, 0, width, height);
 
-        let parteSeleccionada = document.getElementById("parteSeleccionada").value;
+        let parteSeleccionada =
+          document.getElementById("parteSeleccionada").value;
 
         let selectedColor = document.getElementById("colorSeleccionado").value;
 
@@ -78,9 +93,7 @@
               noStroke();
 
               circle(keypoint.x, keypoint.y, 5);
-            }
-
-            else if (keypoint.name === parteSeleccionada) {
+            } else if (keypoint.name === parteSeleccionada) {
               fill(c);
               noStroke();
 
